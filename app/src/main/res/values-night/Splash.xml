@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="My.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logodark</item>
+        <item name="postSplashScreenTheme">@style/Theme.DailyQuotesApp</item>
+        <item name="windowSplashScreenBackground">@color/black</item>
+    </style>
+</resources>
