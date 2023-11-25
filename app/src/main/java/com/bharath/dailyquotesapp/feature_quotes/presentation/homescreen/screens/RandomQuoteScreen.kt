@@ -1,5 +1,6 @@
 package com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +11,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.HomeViewModel
+import ir.kaaveh.sdpcompose.ssp
 
 @Composable
 fun RandomQuoteScreen(
@@ -21,11 +24,18 @@ fun RandomQuoteScreen(
         homeViewModel.getRandomQuote()
     })
 
+    val quote = QuoteItem()
+    quote.content
+    quote._id
+    quote.author
+    quote.tags
     val randomQuote = homeViewModel.randomQuote.collectAsStateWithLifecycle()
 
-    Column (
-        modifier=Modifier.fillMaxSize()
-    ){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
         if (randomQuote.value.isLoading) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -33,7 +43,8 @@ fun RandomQuoteScreen(
             }
         } else {
 
-            Text(text = randomQuote.value.quoteItem.content)
+            Text(text = randomQuote.value.quoteItem.content, fontSize = 20.ssp,)
+
         }
 
     }

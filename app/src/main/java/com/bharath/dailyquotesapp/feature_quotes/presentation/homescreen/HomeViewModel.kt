@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.QuotesPagingSource
+import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteDto
 import com.bharath.dailyquotesapp.feature_quotes.data.other.Resource
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
@@ -61,17 +62,13 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    var listOfQuotes = emptyFlow<PagingData<QuoteItem>>()
+    var listOfQuotes = Pager(
+        config = PagingConfig(pageSize = 20, prefetchDistance = 1, initialLoadSize = 20)
+    )
+    {
+        QuotesPagingSource(repository)
+    }.flow
+        .cachedIn(viewModelScope)
 
-    fun getPagingData() {
 
-
-        listOfQuotes = Pager(
-            config = PagingConfig(pageSize = 20, prefetchDistance = 1, initialLoadSize = 20)
-        )
-        {
-            QuotesPagingSource(repository)
-        }.flow
-            .cachedIn(viewModelScope)
-    }
 }

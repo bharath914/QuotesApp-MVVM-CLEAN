@@ -16,17 +16,18 @@ class GetQuotesListUseCase @Inject constructor(
 
 
     operator fun invoke(pageNo: String): Flow<Resource<List<QuoteItem>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val res = repository.getListOfQuotes(pageNo).map {
-                it.toDomain()
-            }
-            emit(Resource.Success(data = res))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "Http Exception"))
-        } catch (e: IOException) {
-            emit(Resource.Error(e.localizedMessage ?: "IO Exception"))
-        }
-    }
+//        try {
+////            emit(Resource.Loading())
+////            val res = repository.getListOfQuotes(pageNo).map {
+////                it.toDomain()
+////            }
+////            emit(Resource.Success(data = res))
+////        } catch (e: HttpException) {
+////            emit(Resource.Error(e.localizedMessage ?: "Http Exception"))
+////        } catch (e: IOException) {
+////            emit(Resource.Error(e.localizedMessage ?: "IO Exception"))
+////        }
+//    }
 
+    }
 }
