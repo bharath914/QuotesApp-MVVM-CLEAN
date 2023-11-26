@@ -1,5 +1,8 @@
 package com.bharath.dailyquotesapp.feature_quotes.data.entity
 
+import androidx.annotation.Keep
+
+@Keep
 data class QuoteDto(
     val count: Int,
     val lastItemIndex: Int,

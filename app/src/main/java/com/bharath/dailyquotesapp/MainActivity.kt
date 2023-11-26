@@ -29,15 +29,14 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navHostController = rememberNavController()
 
-                    Scaffold { paddingValues ->
 
                         MyNavHost(
                             navHostController = navHostController,
-                            paddingValues = paddingValues,
+
                             starDestination = Screens.Home.route
                         )
 
-                    }
+
 
                 }
             }

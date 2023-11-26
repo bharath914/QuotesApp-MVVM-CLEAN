@@ -6,6 +6,8 @@ import androidx.paging.PagingState
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.toQuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
+import com.bharath.dailyquotesapp.ui.theme.dark_colors
+import com.bharath.dailyquotesapp.ui.theme.light_colors
 import javax.inject.Inject
 
 class QuotesPagingSource @Inject constructor(
@@ -20,9 +22,23 @@ class QuotesPagingSource @Inject constructor(
             val nextPage = params.key ?: 1
             Log.d("Quotes", "load: getting quootes ")
             val quotes = repository.getListOfQuotes(pageNo = "$nextPage")
+            var idx = 0
+            var idx2 = 0
+            val darkcolors = dark_colors.shuffled()
+            val lightcolors = light_colors.shuffled()
+
             LoadResult.Page(
                 data = quotes.results.map {
-                    it.toQuoteItem()
+
+                    if (idx>=quotes.results.size){
+                        idx=0
+                        idx2=0
+                    }
+                    it.toQuoteItem(
+                        lightcolors[idx++],
+                        darkcolors[idx2++]
+                    )
+
                 },
                 prevKey = if (nextPage == 1) null else nextPage - 1,
                 nextKey = if (quotes.results.isEmpty()) null else nextPage + 1

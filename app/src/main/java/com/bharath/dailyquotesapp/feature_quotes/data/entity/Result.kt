@@ -1,5 +1,9 @@
 package com.bharath.dailyquotesapp.feature_quotes.data.entity
 
+import androidx.annotation.Keep
+
+
+@Keep
 data class Result(
     val _id: String,
     val author: String,

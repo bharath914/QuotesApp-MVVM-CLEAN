@@ -26,11 +26,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -74,7 +75,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("androidx.navigation:navigation-compose:2.7.5")
-
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -114,6 +115,19 @@ dependencies {
 
 
 
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
     implementation("androidx.paging:paging-compose:1.0.0-alpha18")
+
+
+
+    implementation("androidx.room:room-runtime:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+//  implementation("androidx.room:room-coroutines:2.1.0-alpha04") // Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.5.2")
+
+    implementation("androidx.room:room-paging:2.5.2")
+
+
+
+
 }
