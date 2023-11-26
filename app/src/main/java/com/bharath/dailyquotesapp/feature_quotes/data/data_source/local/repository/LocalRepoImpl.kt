@@ -14,19 +14,19 @@ class LocalRepoImpl @Inject constructor(
     private val dao: QuoteDao,
 ) : LocalRepo {
     override suspend fun insert(entity: QuoteEntity) {
-        withContext(Dispatchers.IO) {
+        withContext(IO) {
             dao.insert(entity)
         }
     }
 
     override suspend fun delete(entity: QuoteEntity) {
-        withContext(Dispatchers.IO) {
+        withContext(IO) {
             dao.delete(entity)
         }
     }
 
     override suspend fun getQuote(): Flow<QuoteEntity> {
-        return withContext(Dispatchers.IO) {
+        return withContext(IO) {
             dao.getSavedQuote()
         }
     }
