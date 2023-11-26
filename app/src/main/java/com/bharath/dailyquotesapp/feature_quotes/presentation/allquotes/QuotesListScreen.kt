@@ -1,4 +1,4 @@
-package com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.screens
+package com.bharath.dailyquotesapp.feature_quotes.presentation.allquotes
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -7,6 +7,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,13 +39,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.toQuoteItemForSaveCheck
-import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.HomeViewModel
 import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.events.HomeEvents
+import com.bharath.dailyquotesapp.feature_quotes.presentation.mainscreen.MainViewModel
 import com.bharath.dailyquotesapp.ui.theme.getColors
 import com.bharath.dailyquotesapp.ui.theme.roboto
 import ir.kaaveh.sdpcompose.sdp
@@ -53,16 +55,21 @@ import ir.kaaveh.sdpcompose.ssp
 
 @Composable
 fun QuotesListScreen(
-    homeViewModel: HomeViewModel,
+//    homeViewModel: HomeViewModel,
+    paddingValues: PaddingValues,
+    mainViewModel: MainViewModel
 ) {
 
+    val viewModel = hiltViewModel<QuotesListViewModel>()
 
-    QuotesContent(viewModel = homeViewModel)
+    QuotesContent(viewModel = viewModel, paddingValues,mainViewModel)
 }
 
 @Composable
 private fun QuotesContent(
-    viewModel: HomeViewModel,
+    viewModel: QuotesListViewModel,
+    paddingValues: PaddingValues,
+    mainViewModel: MainViewModel
 ) {
 
 
@@ -71,7 +78,9 @@ private fun QuotesContent(
 
     val colors = getColors(isSystemInDarkTheme())
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .padding(paddingValues)
+            .fillMaxSize(),
 
         ) {
         val mod = Modifier
@@ -109,7 +118,7 @@ private fun QuotesContent(
                     })
                     quoteItem?.let {
 
-                        val isSaved = viewModel.set.contains(it._id)
+                        val isSaved = mainViewModel.set.contains(it._id)
                         CardQuote(
                             quoteItem = it.toQuoteItemForSaveCheck(isSaved),
                             mod.graphicsLayer {
@@ -117,7 +126,14 @@ private fun QuotesContent(
                                 scaleY = animatedProgress.value
                             }
                         ) {
-                            viewModel.onEvent(HomeEvents.ClickedOnFavButton(quoteItem, isSaved))
+
+                            viewModel.onEvent(
+                                HomeEvents.ClickedOnFavButton(
+                                    quoteItem.toQuoteItemForSaveCheck(
+                                        isSaved
+                                    ), isSaved
+                                )
+                            )
                         }
                     }
 
@@ -128,7 +144,7 @@ private fun QuotesContent(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator()
+                            CircularProgressIndicator(modifier = Modifier.padding(vertical = 20.sdp))
                         }
                     }
                 }

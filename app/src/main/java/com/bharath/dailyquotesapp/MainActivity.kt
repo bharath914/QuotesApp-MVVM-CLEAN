@@ -5,13 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.bharath.dailyquotesapp.feature_quotes.presentation.navigation.MyNavHost
-import com.bharath.dailyquotesapp.feature_quotes.presentation.navigation.Screens
+import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.HomeScreen
 import com.bharath.dailyquotesapp.ui.theme.DailyQuotesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,12 +28,7 @@ class MainActivity : ComponentActivity() {
                     val navHostController = rememberNavController()
 
 
-                        MyNavHost(
-                            navHostController = navHostController,
-
-                            starDestination = Screens.Home.route
-                        )
-
+                    HomeScreen(navHostController = navHostController)
 
 
                 }

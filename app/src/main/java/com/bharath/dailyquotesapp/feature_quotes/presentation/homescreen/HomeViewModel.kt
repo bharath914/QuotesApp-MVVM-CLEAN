@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.bharath.dailyquotesapp.feature_quotes.data.data_source.AuthorsPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.QuotesPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity.toQuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.data.other.Resource
 import com.bharath.dailyquotesapp.feature_quotes.domain.datastore.DataStoreRepository
+import com.bharath.dailyquotesapp.feature_quotes.domain.entity.AuthorItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.toSavedEntity
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
@@ -27,6 +30,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -117,11 +121,7 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    var listOfQuotes = Pager(
-        config = PagingConfig(pageSize = 20, prefetchDistance = 1, initialLoadSize = 20)
-    ) {
-        QuotesPagingSource(repository)
-    }.flow.cachedIn(viewModelScope)
+
 
 
     fun onEvent(events: HomeEvents) {
@@ -169,6 +169,12 @@ class HomeViewModel @Inject constructor(
     }
 
 
+    // authors
+
+
+    fun getAuthors() {
+//        authorsFlow =
+    }
 }
 
 

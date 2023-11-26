@@ -1,6 +1,7 @@
 package com.bharath.dailyquotesapp.feature_quotes.presentation.saved
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity.toQuoteItem
-import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.screens.CardQuote
+import com.bharath.dailyquotesapp.feature_quotes.presentation.allquotes.CardQuote
 import com.bharath.dailyquotesapp.feature_quotes.presentation.saved.events.SavedScreenEvents
 import com.bharath.dailyquotesapp.ui.theme.dark_colors
 import com.bharath.dailyquotesapp.ui.theme.light_colors
@@ -27,13 +28,14 @@ import ir.kaaveh.sdpcompose.sdp
 @Composable
 fun SavedScreen(
     navHostController: NavHostController,
+    paddingValues: PaddingValues
 ) {
 
     val viewModel = hiltViewModel<SavedScreenViewModel>()
     LaunchedEffect(key1 = true, block = {
         viewModel.getAllQuotes()
     })
-    Content(viewModel = viewModel)
+    Content(viewModel = viewModel,paddingValues)
 
 
 }
@@ -41,12 +43,12 @@ fun SavedScreen(
 @Composable
 private fun Content(
     viewModel: SavedScreenViewModel,
+    paddingValues: PaddingValues
 ) {
 
     Scaffold(
-        topBar = {
-            TopBar()
-        }
+
+        modifier = Modifier.padding(paddingValues)
     ) { padd ->
         Column(
             modifier = Modifier
@@ -62,7 +64,7 @@ private fun Content(
 
             val darkcolors = dark_colors.shuffled()
             val lightcolors = light_colors.shuffled()
-            var idx = 0;
+            var idx = 0
             LazyColumn {
 
 

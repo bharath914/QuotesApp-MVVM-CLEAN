@@ -61,7 +61,7 @@ fun QuoteItem.toQuoteItemForSaveCheck(contains: Boolean): QuoteItem {
         content,
         dateModified,
         tags,
-        contains,
+        isSaved = contains,
         color,
         darkColor
 
