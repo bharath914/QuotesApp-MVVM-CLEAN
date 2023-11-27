@@ -19,6 +19,9 @@ interface QuoteDao {
     @Query("SELECT * FROM Quote limit 1")
     fun getSavedQuote(): Flow<QuoteEntity>
 
+    @Query("Delete  From Quote")
+    suspend fun deleteAllSavedQuotes()
+
 
     @Insert(entity = SavedQuoteEntity::class)
     suspend fun insertIntoSavedQuotes(savedQuoteEntity: SavedQuoteEntity)
@@ -32,5 +35,13 @@ interface QuoteDao {
 
     @Query("SELECT idOfQuote from SavedQuotes")
     fun getAllIdsOfSavedQuotes(): Flow<List<String>>
+
+
+    @Query("SELECT  * From SavedQuotes where content like :searchQuery or author like :searchQuery order by id DESC Limit :limit OFFSET :offset")
+    fun searchSavedQuotes(
+        searchQuery: String,
+        offset: Int,
+        limit: Int,
+    ): List<SavedQuoteEntity>
 
 }

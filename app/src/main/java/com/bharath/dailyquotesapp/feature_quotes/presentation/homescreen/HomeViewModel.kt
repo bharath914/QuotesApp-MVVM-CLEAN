@@ -2,22 +2,16 @@ package com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen
 
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.bharath.dailyquotesapp.feature_quotes.data.data_source.AuthorsPagingSource
-import com.bharath.dailyquotesapp.feature_quotes.data.data_source.QuotesPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity.toQuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.data.other.Resource
 import com.bharath.dailyquotesapp.feature_quotes.domain.datastore.DataStoreRepository
-import com.bharath.dailyquotesapp.feature_quotes.domain.entity.AuthorItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.toSavedEntity
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
-import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.GetQuotesListUseCase
+import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.GetSearchQuotesListUseCase
 import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.GetRandomQuoteUseCase
 import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.local.DeleteFromSavedQuotesUseCase
 import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.local.GetAllSavedQuoteIdsUseCase
@@ -25,12 +19,12 @@ import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.local.GetQuoteU
 import com.bharath.dailyquotesapp.feature_quotes.domain.usecases.local.InsertIntoSavedQuotesUseCase
 import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.events.HomeEvents
 import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.state.RandomQuoteState
+import com.bharath.dailyquotesapp.feature_quotes.presentation.navigation.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -39,7 +33,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getQuotesListUseCase: GetQuotesListUseCase,
+    private val getSearchQuotesListUseCase: GetSearchQuotesListUseCase,
     private val getRandomQuoteUseCase: GetRandomQuoteUseCase,
     private val repository: Repository,
     private val dataStoreRepository: DataStoreRepository,
@@ -57,7 +51,7 @@ class HomeViewModel @Inject constructor(
 
     fun manageDailyQuote(context: Context) {
         val dateToday = Calendar.getInstance().time.date.toString()
-
+        Log.d("Today'sDate", "manageDailyQuote: $dateToday")
         viewModelScope.launch(IO) {
 
             dataStoreRepository.getLastSavedDate().collectLatest {
@@ -121,9 +115,6 @@ class HomeViewModel @Inject constructor(
     }
 
 
-
-
-
     fun onEvent(events: HomeEvents) {
         when (events) {
             is HomeEvents.ShowNavigationDrawer -> {
@@ -147,16 +138,23 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
+
+
+
+
         }
     }
 
     val set: HashSet<String> = HashSet()
 
+    private val _ids = MutableStateFlow(set)
+    val ids = _ids.asStateFlow()
 
     fun getIds() {
         getAllSavedQuoteIdsUseCase().onEach {
-            it.collectLatest { list ->
+            it.collect { list ->
                 set.addAll(list)
+                _ids.tryEmit(set)
             }
         }.launchIn(viewModelScope)
 
@@ -172,9 +170,10 @@ class HomeViewModel @Inject constructor(
     // authors
 
 
-    fun getAuthors() {
-//        authorsFlow =
-    }
+    private val _currentScreen = MutableStateFlow(Screens.AllQuotes.route)
+    val currentScreen = _currentScreen.asStateFlow()
+
+
 }
 
 

@@ -25,6 +25,19 @@ interface QuotesApi {
         @Query("page") page: String,
         @Query("author") author: String,
     ): QuoteDto
+
+    @GET("search/quotes")
+    suspend fun getQuotesBySearch(
+        @Query("query") query: String,
+        @Query("page") page: String,
+    ): QuoteDto
+
+    @GET("search/authors")
+    suspend fun getAuthorsBySearch(
+        @Query("query") query: Query,
+        @Query("page") page: String,
+
+        )
 }
 
 

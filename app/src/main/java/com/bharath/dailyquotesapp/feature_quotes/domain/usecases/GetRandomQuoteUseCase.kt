@@ -26,6 +26,7 @@ class GetRandomQuoteUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<QuoteItem>> = flow {
         try {
             emit(Resource.Loading())
+            localRepo.deleteAllColumnsInRandomQuote()
             val res = repository.getRandomQuote()
             val date = Calendar.getInstance().time.date
             localRepo.insert(res.toQuoteEntity(date.toString()))

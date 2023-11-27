@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.bharath.dailyquotesapp.feature_quotes.presentation.search.SearchScreen
 import com.bharath.dailyquotesapp.feature_quotes.presentation.allquotes.QuotesListScreen
 import com.bharath.dailyquotesapp.feature_quotes.presentation.authors.AuthorsScreen
 import com.bharath.dailyquotesapp.feature_quotes.presentation.authors.authorDetail.AuthorDetailScreen
@@ -85,6 +86,15 @@ fun MyNavHost(
                     mainViewModel
                 )
             }
+
+
+            composable(Screens.SearchScreen.route){
+                SearchScreen(navHostController)
+            }
+
+
+
+
         }
     )
 
@@ -123,5 +133,9 @@ sealed class Screens(val route: String, val label: String, val icon: ImageVector
         "AuthorDetail",
 
         )
+    object SearchScreen : Screens(
+        route = "SearchScreen/{route}",
+        "SearchScreen"
+    )
 
 }
