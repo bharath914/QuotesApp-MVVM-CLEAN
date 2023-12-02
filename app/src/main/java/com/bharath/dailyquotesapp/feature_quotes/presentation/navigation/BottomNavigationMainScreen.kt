@@ -24,14 +24,15 @@ fun MyBottomNavigationBar(
     val list = listOf(
         Screens.Saved,
         Screens.AllQuotes,
-        Screens.AuthorScreen
+        Screens.TagScreens,
+        Screens.AuthorScreen,
     )
     val clr = MaterialTheme.colorScheme.background.copy(alpha = 0.7f)
     val currentScreen by navHostController.currentBackStackEntryAsState()
     val currentRoute = currentScreen?.destination?.route
 
     val set = hashSetOf<String>(
-        Screens.AuthorDetailScreen.route,
+        Screens.QuoteDetailScreen.route,
         Screens.SearchScreen.route
 
     )

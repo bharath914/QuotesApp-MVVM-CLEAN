@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.HomeScreen
+import com.bharath.dailyquotesapp.feature_quotes.presentation.primary.homescreen.HomeScreen
 import com.bharath.dailyquotesapp.ui.theme.DailyQuotesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 

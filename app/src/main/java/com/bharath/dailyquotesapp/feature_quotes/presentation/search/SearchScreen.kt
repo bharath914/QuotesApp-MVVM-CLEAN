@@ -24,9 +24,9 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.toAuthorItem
-import com.bharath.dailyquotesapp.feature_quotes.presentation.allquotes.CardQuote
-import com.bharath.dailyquotesapp.feature_quotes.presentation.authors.AuthorsCard
-import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.components.QuoteCard
+import com.bharath.dailyquotesapp.feature_quotes.presentation.primary.allquotes.CardQuote
+import com.bharath.dailyquotesapp.feature_quotes.presentation.primary.authors.AuthorsCard
+import com.bharath.dailyquotesapp.feature_quotes.presentation.primary.homescreen.components.QuoteCard
 import ir.kaaveh.sdpcompose.sdp
 
 

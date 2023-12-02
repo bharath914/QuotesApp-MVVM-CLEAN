@@ -1,9 +1,5 @@
 package com.bharath.dailyquotesapp.feature_quotes.domain.usecases
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.bharath.dailyquotesapp.feature_quotes.data.data_source.QuotesPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity.toQuoteEntity
 import com.bharath.dailyquotesapp.feature_quotes.data.other.Resource
 import com.bharath.dailyquotesapp.feature_quotes.domain.datastore.DataStoreRepository
@@ -15,7 +11,6 @@ import com.bharath.dailyquotesapp.ui.theme.dark_colors
 import com.bharath.dailyquotesapp.ui.theme.light_colors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.Calendar

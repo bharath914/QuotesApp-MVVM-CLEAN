@@ -5,6 +5,7 @@ import com.bharath.dailyquotesapp.feature_quotes.data.entity.AuthorsDto
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteDto
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteItemDto
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.search.SearchDto
+import com.bharath.dailyquotesapp.feature_quotes.data.entity.tags.TagsDtoItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -48,6 +49,18 @@ class RepositoryImpl @Inject constructor(
     override suspend fun searchAuthors(pageNo: String, query: String): AuthorsDto {
         return withContext(IO) {
             api.getAuthorsBySearch(query, pageNo)
+        }
+    }
+
+    override suspend fun getAllTags(): List<TagsDtoItem> {
+        return withContext(IO) {
+            api.getAllTags()
+        }
+    }
+
+    override suspend fun getQuotesByTag(tag:String): QuoteDto {
+        return withContext(IO) {
+            api.getQuotesByTag(tag)
         }
     }
 

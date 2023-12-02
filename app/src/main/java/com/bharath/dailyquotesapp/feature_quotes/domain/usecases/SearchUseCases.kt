@@ -3,8 +3,8 @@ package com.bharath.dailyquotesapp.feature_quotes.domain.usecases
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.bharath.dailyquotesapp.feature_quotes.data.data_source.SearchAuthorsPagingSource
-import com.bharath.dailyquotesapp.feature_quotes.data.data_source.SearchQuotesPagingSource
+import com.bharath.dailyquotesapp.feature_quotes.data.data_source.pagers.SearchAuthorsPagingSource
+import com.bharath.dailyquotesapp.feature_quotes.data.data_source.pagers.SearchQuotesPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.ResultAuthor
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository

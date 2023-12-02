@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity.toQuoteItem
-import com.bharath.dailyquotesapp.feature_quotes.presentation.allquotes.CardQuote
+import com.bharath.dailyquotesapp.feature_quotes.presentation.primary.allquotes.CardQuote
 import com.bharath.dailyquotesapp.feature_quotes.presentation.saved.events.SavedScreenEvents
 import com.bharath.dailyquotesapp.ui.theme.dark_colors
 import com.bharath.dailyquotesapp.ui.theme.light_colors
