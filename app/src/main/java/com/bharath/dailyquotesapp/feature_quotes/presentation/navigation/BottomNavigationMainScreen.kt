@@ -32,8 +32,9 @@ fun MyBottomNavigationBar(
 
     val set = hashSetOf<String>(
         Screens.AuthorDetailScreen.route,
+        Screens.SearchScreen.route
 
-        )
+    )
 
     AnimatedVisibility(
         visible = !set.contains(currentRoute), enter = expandVertically(tween(200)),
@@ -52,14 +53,14 @@ fun MyBottomNavigationBar(
                     selected = currentRoute == screens.route,
                     onClick = {
 
-                        if (screens.route!=currentRoute){
+                        if (screens.route != currentRoute) {
 
-                        navHostController.popBackStack()
+                            navHostController.popBackStack()
 
-                        navHostController.navigate(screens.route) {
-                            this.launchSingleTop = true
+                            navHostController.navigate(screens.route) {
+                                this.launchSingleTop = true
 
-                        }
+                            }
                         }
                     },
                     icon = {

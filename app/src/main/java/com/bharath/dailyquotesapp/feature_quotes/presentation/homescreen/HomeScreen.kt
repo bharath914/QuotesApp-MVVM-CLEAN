@@ -16,9 +16,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.events.HomeEvents
 import com.bharath.dailyquotesapp.feature_quotes.presentation.homescreen.screens.RandomQuoteScreen
 import com.bharath.dailyquotesapp.feature_quotes.presentation.mainscreen.MainScreen
+import com.bharath.dailyquotesapp.feature_quotes.presentation.navigation.Screens
 import kotlinx.coroutines.launch
 
 
@@ -74,7 +74,10 @@ private fun HomeContent(
             val currentScreen by navHostController.currentBackStackEntryAsState()
             val route = currentScreen?.destination?.route
 
-            HorizontalPager(state = pagerState, userScrollEnabled = pagerState.currentPage == 0) {
+            HorizontalPager(
+                state = pagerState,
+                userScrollEnabled = pagerState.currentPage == 0
+            ) { it ->
 
 
                 when (it) {
@@ -86,8 +89,8 @@ private fun HomeContent(
                     1 -> {
                         MainScreen(navHostController = navHostController,
                             onClickSearchIcon = {
-                                route?.let {
-
+                                route?.let { rte ->
+                                    navHostController.navigate(Screens.SearchScreen.route + "$rte")
                                 }
                             }, onclickBackButton = {
                                 scope.launch {

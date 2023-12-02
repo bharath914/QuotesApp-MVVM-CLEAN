@@ -1,6 +1,9 @@
 package com.bharath.dailyquotesapp.feature_quotes.domain.usecases
 
-import com.bharath.dailyquotesapp.feature_quotes.data.other.Resource
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.bharath.dailyquotesapp.feature_quotes.data.data_source.QuotesPagingSource
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import com.bharath.dailyquotesapp.feature_quotes.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
@@ -12,9 +15,9 @@ class GetSearchQuotesListUseCase @Inject constructor(
 ) {
 
 
-    operator fun invoke(query: String, pageNo: String): Flow<Resource<List<QuoteItem>>> = flow {
-
-
-
-    }
+    operator fun invoke(): Flow<PagingData<QuoteItem>> = Pager(
+        config = PagingConfig(20, prefetchDistance = 1, initialLoadSize = 20)
+    ) {
+        QuotesPagingSource(repository)
+    }.flow
 }

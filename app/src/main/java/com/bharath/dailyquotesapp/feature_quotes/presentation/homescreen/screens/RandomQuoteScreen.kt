@@ -38,46 +38,47 @@ fun RandomQuoteScreen(
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    if (randomQuote.value.quoteItem != QuoteItem()) {
-        Scaffold(
-            topBar = {
-                Row(
-                    modifier = Modifier
-                        .padding(start = 10.sdp, end = 10.sdp, top = 10.sdp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "Quote Of The Day", fontSize = 18.ssp)
-                }
+
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .padding(start = 10.sdp, end = 10.sdp, top = 10.sdp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Quote Of The Day", fontSize = 18.ssp)
             }
+        }
+    ) {
+
+
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
 
-            Column(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            if (randomQuote.value.isLoading) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                val mod = Modifier
+                    .padding(horizontal = 15.sdp, vertical = 20.sdp)
+                    .fillMaxWidth()
+                    .height(250.sdp)
+                val qoute = randomQuote.value.quoteItem
 
 
-                if (randomQuote.value.isLoading) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
-                    }
-                } else {
-                    val mod = Modifier
-                        .padding(horizontal = 15.sdp, vertical = 20.sdp)
-                        .fillMaxWidth()
-                        .height(250.sdp)
-                    val qoute = randomQuote.value.quoteItem
-
-
-                    val ids by homeViewModel.ids.collectAsStateWithLifecycle(lifecycle)
-                    val isSaved = ids.contains(qoute._id)
-                    Spacer(modifier = Modifier.height(40.sdp))
+                val ids by homeViewModel.ids.collectAsStateWithLifecycle(lifecycle)
+                val isSaved = ids.contains(qoute._id)
+                Spacer(modifier = Modifier.height(40.sdp))
+                if (randomQuote.value.quoteItem != QuoteItem()) {
                     CardQuote(quoteItem = qoute.toQuoteItemForSaveCheck(isSaved), modifier = mod) {
                         homeViewModel.onEvent(
                             HomeEvents.ClickedOnFavButton(
@@ -87,17 +88,18 @@ fun RandomQuoteScreen(
                             )
                         )
                     }
-                    Spacer(modifier = Modifier.height(40.sdp))
-                    Box(
-                        modifier = Modifier
-                            .padding(bottom = 40.sdp)
-                            .fillMaxSize(), contentAlignment = Alignment.BottomCenter
-                    ) {
-                        Text(text = "Swipe to View More ->")
-                    }
                 }
-
+                Spacer(modifier = Modifier.height(40.sdp))
+                Box(
+                    modifier = Modifier
+                        .padding(bottom = 40.sdp)
+                        .fillMaxSize(), contentAlignment = Alignment.BottomCenter
+                ) {
+                    Text(text = "Swipe to View More ->")
+                }
             }
+
         }
     }
+
 }

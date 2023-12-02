@@ -3,6 +3,7 @@ package com.bharath.dailyquotesapp.feature_quotes.data.data_source
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.AuthorsDto
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteDto
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteItemDto
+import com.bharath.dailyquotesapp.feature_quotes.data.entity.search.SearchDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,14 +31,14 @@ interface QuotesApi {
     suspend fun getQuotesBySearch(
         @Query("query") query: String,
         @Query("page") page: String,
-    ): QuoteDto
+    ): SearchDto
 
     @GET("search/authors")
     suspend fun getAuthorsBySearch(
-        @Query("query") query: Query,
+        @Query("query") query: String,
         @Query("page") page: String,
 
-        )
+        ):AuthorsDto
 }
 
 

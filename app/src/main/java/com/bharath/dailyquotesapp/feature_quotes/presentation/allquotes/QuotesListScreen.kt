@@ -57,21 +57,25 @@ import ir.kaaveh.sdpcompose.ssp
 fun QuotesListScreen(
 //    homeViewModel: HomeViewModel,
     paddingValues: PaddingValues,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
 ) {
 
     val viewModel = hiltViewModel<QuotesListViewModel>()
 
-    QuotesContent(viewModel = viewModel, paddingValues,mainViewModel)
+    QuotesContent(viewModel = viewModel, paddingValues, mainViewModel)
 }
 
 @Composable
 private fun QuotesContent(
     viewModel: QuotesListViewModel,
     paddingValues: PaddingValues,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
 ) {
 
+
+    LaunchedEffect(key1 = true, block = {
+viewModel.getList()
+    })
 
     val quotes = viewModel.listOfQuotes.collectAsLazyPagingItems()
 

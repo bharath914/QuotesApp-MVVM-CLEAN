@@ -1,5 +1,6 @@
 package com.bharath.dailyquotesapp.feature_quotes.presentation.mainscreen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,9 +41,14 @@ fun MainScreen(
     LaunchedEffect(key1 = true, block = {
         mainViewModel.getIds()
     })
+
+    val doNotShowTopBarSet = hashSetOf<String>(
+        Screens.AuthorDetailScreen.route,
+        Screens.SearchScreen.route
+    )
     Scaffold(
         topBar = {
-            if (currentRoute != Screens.AuthorDetailScreen.route) {
+            if (!doNotShowTopBarSet.contains(currentRoute)) {
                 TopBar(
                     onClickSearchIcon = {
                         onClickSearchIcon()
@@ -85,8 +91,11 @@ private fun TopBar(
             Icon(imageVector = Icons.Outlined.ArrowBackIosNew, contentDescription = null)
         }
 
-        IconButton(onClick = { onClickSearchIcon() }) {
-            Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
+        AnimatedVisibility(visible = false) {
+
+            IconButton(onClick = { onClickSearchIcon() }) {
+                Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
+            }
         }
 
     }
