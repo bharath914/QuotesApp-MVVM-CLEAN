@@ -37,9 +37,10 @@ interface QuotesApi {
 
     @GET("quotes")
     suspend fun getQuotesByTag(
-        @Query("tags") tags:String,
-        @Query("maxLength") maxLength :String ="180"
-    ):QuoteDto
+        @Query("tags") tags: String,
+        @Query("page") page: String,
+        @Query("maxLength") maxLength: String = "180",
+    ): QuoteDto
 
     @GET("search/quotes")
     suspend fun getQuotesBySearch(

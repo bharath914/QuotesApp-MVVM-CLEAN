@@ -41,10 +41,10 @@ class GetQuotesByTag @Inject constructor(
             val lightColor = light_colors.shuffled()
             val darkColor = dark_colors.shuffled()
 
-            val res = repository.getQuotesByTag(tag)
-            emit(Resource.Success(data = res.results.mapIndexed { index, result ->
-                result.toQuoteItem(lightColor[index], darkColor[index])
-            }))
+//            val res = repository.getQuotesByTag(tag,p)
+//            emit(Resource.Success(data = res.results.mapIndexed { index, result ->
+//                result.toQuoteItem(lightColor[index], darkColor[index])
+//            }))
 
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "UnexpectedErro"))

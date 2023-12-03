@@ -70,11 +70,12 @@ fun QuoteItem.toQuoteItemForSaveCheck(contains: Boolean): QuoteItem {
 
 }
 
-fun QuoteItem.toSavedEntity():SavedQuoteEntity{
+fun QuoteItem.toSavedEntity(): SavedQuoteEntity {
     return SavedQuoteEntity(
         idOfQuote = _id,
         content = content,
         author = author,
+        tags = tags,
         dateModified = dateModified
     )
 }

@@ -1,5 +1,6 @@
 package com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -50,6 +51,10 @@ class LocalRepoImpl @Inject constructor(
     override suspend fun deleteFromSavedQuotes(savedQuoteEntity: SavedQuoteEntity) {
         withContext(IO) {
             dao.deleteFromSavedQuotes(savedQuoteEntity)
+            Log.d(
+                "Saved",
+                "deleteFromSavedQuotes: ${savedQuoteEntity.idOfQuote} and ${savedQuoteEntity.content} "
+            )
         }
     }
 

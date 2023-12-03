@@ -3,6 +3,7 @@ package com.bharath.dailyquotesapp.feature_quotes.data.data_source.local.entity
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.bharath.dailyquotesapp.feature_quotes.data.entity.QuoteItemDto
 import com.bharath.dailyquotesapp.feature_quotes.domain.entity.QuoteItem
 import kotlinx.serialization.SerialName
@@ -34,7 +35,9 @@ data class QuoteEntity(
     @SerialName("length")
     val length: Int = 0,
 
+    @SerialName("tags")
 
+    val tags: List<String> = emptyList(),
 
     @SerialName("SavedDate")
     val savedDate: String = "",
@@ -42,12 +45,12 @@ data class QuoteEntity(
 
 fun QuoteItemDto.toQuoteEntity(savedDate: String): QuoteEntity {
     return QuoteEntity(
-        _id, author, content, dateAdded, dateModified, length, savedDate
+        _id, author, content, dateAdded, dateModified, length, tags, savedDate
     )
 }
 
 fun QuoteEntity.toQuoteItem(): QuoteItem {
     return QuoteItem(
-        _id, author, content, dateModified,
+        _id, author, content, dateModified, tags
     )
 }

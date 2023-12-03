@@ -22,10 +22,10 @@ class GetQuotesByTagPagingSource @Inject constructor(
             val page = params.key ?: 1
             val lightcolor = light_colors.shuffled()
             val darkColors = dark_colors.shuffled()
-            val res = repository.getQuotesByTag(tag)
+            val res = repository.getQuotesByTag(tag, pageNo = page.toString())
             LoadResult.Page(
-                data = res.results.map { result ->
-                    result.toQuoteItem(lightcolor.first(), darkColors.first())
+                data = res.results.mapIndexed { index, result ->
+                    result.toQuoteItem(lightcolor[index], darkColors[index])
                 },
                 prevKey = if (page == 1) null else page - 1,
                 nextKey = if (res.results.isEmpty()) null else page + 1

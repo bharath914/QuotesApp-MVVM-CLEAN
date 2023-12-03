@@ -22,7 +22,7 @@ interface Repository {
 
     suspend fun getAllTags(): List<TagsDtoItem>
 
-    suspend fun getQuotesByTag(tag:String):QuoteDto
+    suspend fun getQuotesByTag(tag:String,pageNo: String):QuoteDto
 
 
 

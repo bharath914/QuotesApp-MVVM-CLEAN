@@ -26,7 +26,7 @@ interface QuoteDao {
     @Insert(entity = SavedQuoteEntity::class)
     suspend fun insertIntoSavedQuotes(savedQuoteEntity: SavedQuoteEntity)
 
-    @Delete
+    @Delete(SavedQuoteEntity::class)
     suspend fun deleteFromSavedQuotes(savedQuoteEntity: SavedQuoteEntity)
 
     @Query("SELECT * From SavedQuotes")

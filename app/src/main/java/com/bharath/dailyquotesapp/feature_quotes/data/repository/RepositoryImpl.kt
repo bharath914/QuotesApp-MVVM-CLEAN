@@ -58,9 +58,9 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getQuotesByTag(tag:String): QuoteDto {
+    override suspend fun getQuotesByTag(tag:String,pageNo: String): QuoteDto {
         return withContext(IO) {
-            api.getQuotesByTag(tag)
+            api.getQuotesByTag(tag,pageNo)
         }
     }
 
